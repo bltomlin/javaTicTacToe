@@ -1,0 +1,129 @@
+import java.util.Scanner;
+
+public class Main {
+
+    public static int xWins(char[] tictactoe) {
+        if (tictactoe[0] == 'X' && tictactoe[1] == 'X' && tictactoe[2] == 'X') {
+            return 1;
+        } else if (tictactoe[3] == 'X' && tictactoe[4] == 'X' && tictactoe[5] == 'X') {
+            return 1;
+        } else if (tictactoe[6] == 'X' && tictactoe[7] == 'X' && tictactoe[8] == 'X') {
+            return 1;
+        } else if (tictactoe[0] == 'X' && tictactoe[3] == 'X' && tictactoe[6] == 'X') {
+            return 1;
+        } else if (tictactoe[1] == 'X' && tictactoe[4] == 'X' && tictactoe[7] == 'X') {
+            return 1;
+        } else if (tictactoe[2] == 'X' && tictactoe[5] == 'X' && tictactoe[8] == 'X') {
+            return 1;
+        } else if (tictactoe[0] == 'X' && tictactoe[4] == 'X' && tictactoe[8] == 'X') {
+            return 1;
+        } else if (tictactoe[2] == 'X' && tictactoe[4] == 'X' && tictactoe[6] == 'X') {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    public static int oWins(char[] tictactoe) {
+        if (tictactoe[0] == 'O' && tictactoe[1] == 'O' && tictactoe[2] == 'O') {
+            return 1;
+        } else if (tictactoe[3] == 'O' && tictactoe[4] == 'O' && tictactoe[5] == 'O') {
+            return 1;
+        } else if (tictactoe[6] == 'O' && tictactoe[7] == 'O' && tictactoe[8] == 'O') {
+            return 1;
+        } else if (tictactoe[0] == 'O' && tictactoe[3] == 'O' && tictactoe[6] == 'O') {
+            return 1;
+        } else if (tictactoe[1] == 'O' && tictactoe[4] == 'O' && tictactoe[7] == 'O') {
+            return 1;
+        } else if (tictactoe[2] == 'O' && tictactoe[5] == 'O' && tictactoe[8] == 'O') {
+            return 1;
+        } else if (tictactoe[0] == 'O' && tictactoe[4] == 'O' && tictactoe[8] == 'O') {
+            return 1;
+        } else if (tictactoe[2] == 'O' && tictactoe[4] == 'O' && tictactoe[6] == 'O') {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public static int gameCompletionAudit(char[] tictactoe) {
+        int underscore = 0;
+        int x = 0;
+        int y = 0;
+        for (int i = 0;i < tictactoe.length;i++) {
+            if (tictactoe[i] == '_') {
+                underscore += 1;
+            } else if (tictactoe[i] == 'X') {
+                x += 1;
+            } else {
+                y += 1;
+            }
+        }
+        if(x - y >= 2 || y - x >= 2) {
+            return 2;
+        } else if (underscore > 0) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    public static void printBoard(char[] ticTacToe) {
+        System.out.println("---------");
+        System.out.print("| ");
+
+        for(int i = 0;i < 3;i++){
+            System.out.print(ticTacToe[i] + " ");
+        }
+        System.out.println("|");
+        System.out.print("| ");
+
+        for(int i = 3; i < 6;i++){
+            System.out.print(ticTacToe[i] + " ");
+        }
+        System.out.println("|");
+        System.out.print("| ");
+
+        for(int i = 6; i < 9;i++){
+            System.out.print(ticTacToe[i] + " ");
+        }
+        System.out.println("|");
+        System.out.println("---------");
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int xWins = 0;
+        int oWins = 0;
+        int gameCompletionAudit = 0;
+
+        System.out.println("Enter cells:");
+        String input = in.next();
+        char[] ticTacToe = new char[input.length()];
+
+        for (int i = 0; i < ticTacToe.length; i++) {
+            ticTacToe[i] = input.charAt(i);
+        }
+
+        xWins = xWins(ticTacToe);
+        oWins = oWins(ticTacToe);
+        gameCompletionAudit = gameCompletionAudit(ticTacToe);
+
+        printBoard(ticTacToe);
+
+        if (xWins == 1 && oWins == 0) {
+            System.out.println("X wins");
+        } else if (xWins == 0 && oWins == 1) {
+            System.out.println("O wins");
+        } else if (gameCompletionAudit == 2) {
+            System.out.println("Impossible");
+        } else if (xWins == 1 && oWins == 1) {
+            System.out.println("Impossible");
+        } else if (xWins == 0 && oWins == 0 && gameCompletionAudit == 0) {
+            System.out.println("Game not finished");
+        } else if (xWins == 0 && oWins == 0 && gameCompletionAudit == 1) {
+            System.out.println("Draw");
+        } else {
+            System.out.println("Error");
+        }
+    }
+}
